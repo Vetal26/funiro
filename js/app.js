@@ -67,3 +67,89 @@ window.onload = function () {
 };
 
 // add spollers!!!
+
+
+//BildSlider
+
+let sliders = document.querySelectorAll('.swiper');
+if(sliders) {
+    for (let index = 0; index < sliders.length; index++) {
+        let slider = sliders[index];
+        if (!slider.classList.contains('swiper-bild')) {
+            let sliderItems = slider.children;
+            if (sliderItems) {
+                for (let index = 0; index < sliderItems.length; index++) {
+                    let el = sliderItems[index];
+                    el.classList.add('swiper-slide');
+                }
+            }
+            let sliderContent = slider.innerHTML;
+            let sliderWrapper = document.createElement('div');
+            sliderWrapper.classList.add('swiper-wrapper');
+            sliderWrapper.innerHTML = sliderContent;
+            slider.innerHTML = '';
+            slider.appendChild(sliderWrapper);
+            slider.classList.add('swiper-bild');
+
+            if (slider.classList.contains('swiper_scroll')) {
+                let sliderScroll = document.createElement('div');
+                sliderScroll.classList.add('swiper-scrollbar');
+                slider.appendChild(sliderScroll);
+            }
+        }
+        if (slider.classList.contains('gallery')){
+            //slider.data('lightGallery').destroy(true);
+        }
+    }
+    slidersBildCallback();
+}
+
+function slidersBildCallback(params) {}
+
+let sliderScrollItems = document.querySelectorAll('swiper-scroll');
+if (sliderScrollItems.length > 0) {
+    for (let index = 0; index < sliderScrollItems.length; index++) {
+        const sliderScrollItem = sliderScrollItems[index];
+        const sliderScrollBar = sliderScrollItem.querySelector('.swiper-scrollbar');
+        const sliderScroll = new Swiper(sliderScrollItem, {
+            observer: true,
+            observerParents: true,
+            direction: 'vertcal',
+            slidesPerView: 'auto',
+            freeMode: true,
+            scrollbar : {
+                el: sliderScrollBar,
+                draggable: true,
+                snapOnRelease: false,
+            },
+            mousewheel: {
+                releaseOnEdges: true,
+            },
+        });
+        sliderScroll.scrollbar.updateSize();
+    }
+}
+
+
+if (document.querySelector('.slider-main__body')) {
+    new Swiper('.slider-main__body', {
+        observer: true,
+        observerParents: true,
+        slidesPerView: 1,
+        spaceBetween: 32,
+        watchOverflow: true,
+        speed: 800,
+        loop: true,
+        loopAdditionalSlides: 5,
+        preloadImages: false,
+        parallax: true,
+        pagination: {
+            el: '.controls-slider-main__dotts',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.slider-main .slider-arrow_next',
+            prevEl: '.slider-main .slider-arrow_prev'
+        },
+    })
+}
